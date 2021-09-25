@@ -46,7 +46,7 @@
 }
 
 #hero-container a button {
-    padding: 2rem 5rem;
+    padding: 1.5rem 3rem;
     margin-top: 2rem;
     font-size: 1.2rem;
     background: var(--yellow-primary);
