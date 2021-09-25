@@ -1,0 +1,62 @@
+#landing-navbar {
+    padding: 2rem 8rem;
+    background: var(--gradient-primary);
+    color: var(--white-primary);
+    transition: 0.4s !important;
+}
+
+#landing-navbar .navbar-brand {
+    color: var(--white-primary);
+}
+
+#landing-navbar .navbar-nav a {
+    color: var(--white-primary);
+    transition: .3s;
+}
+
+#landing-navbar .navbar-brand:hover, #landing-navbar .navbar-nav a:hover {
+    color: var(--yellow-primary);
+    transition: .3s;
+}
+
+#container-title {
+    color: var(--white-primary);
+}
+
+#hero-container {
+    padding: 2rem 8.9rem;
+}
+
+#hero-container img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 0.2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#hero-container .message-box {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 0.2rem;
+}
+
+#hero-container .message-box p {
+    color: var(--fg-primary);
+}
+
+#hero-container a button {
+    padding: 2rem 5rem;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    background: var(--yellow-primary);
+    border: none;
+    border-radius: 0.2rem;
+    color: var(--bg-primary);
+    transition: .3s;
+}
+
+#hero-container a button:hover {
+    background: var(--yellow-secondary);
+    transition: .3s;
+}
