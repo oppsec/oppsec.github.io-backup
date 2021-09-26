@@ -24,7 +24,7 @@
     <section id="navbar">
         <nav class="navbar navbar-expand-lg" id="landing-navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="../../index.html">
                     oppsec
                 </a>
 
@@ -56,49 +56,49 @@
                     <img src="https://i.imgur.com/DurkzwL.png" alt="">
 
                     <div id="post-content-container">
-                        <p> Explore is a easy machine from HackTheBox focused on a mobile system and it's the first mobile machine I've made on HackTheBox. </p>
+                        <p> Explore is a easy machine from HackTheBox with focus in a mobile system and it's the first mobile machine I've played on HackTheBox. </p>
                     
                         <h3 class="post-content-section"> 🔍 Enumeration </h3>
-                        <p> First of all I take the machine ip address and add to my /etc/hosts file with the name "explore.htb" </p>
+                        <p> First of all, I take the machine IP address and add to my /etc/hosts file with the name "explore.htb" to be more easy to interact with the box </p>
                         <img src="../../assets/img/explore/hosts.png" alt="">
 
-                        <p class="post-content-next"> After this I started nmap to scan for open ports on the application to start playing </p>
+                        <p class="post-content-next"> After this, I run nmap to scan for open ports on the application to start enumerating the machine </p>
                         <p class="post-content-command"> sudo nmap -sV -sC -sS -T5 explore.htb </p>
                         <img src="../../assets/img/explore/nmap_1.png" alt="">
-                        <p> As you can see, no interesting open ports, so I decided to run nmap with the -p- flag to enumerate all ports and try to find something interesting </p>
+                        <p> As you can see, no interesting open ports, so I decided to run nmap with the -p- flag to scan all ports and try to find something interesting </p>
                         <p class="post-content-command"> sudo nmap -sV -sC -sS -T5 -p- explore.htb </p>
                         <img src="../../assets/img/explore/nmap_2.png" alt="">
 
-                        <p class="post-content-next"> After running nmap with the -p- flag I found more two open ports one is 42135 which is running ES File Explorer service and the other ports is 59777 running a Bukkit JSONAPI (?) </p>
-                        <p> Immediately after viewing "ES File Explorer" I tried to find some exploit to this service with the searchsploit and... we found gold! </p>
+                        <p class="post-content-next"> Running nmap with the -p- flag I found more two open ports, one is 42135 running ES File Explorer service and the other port is 59777 running a Bukkit JSONAPI (?) </p>
+                        <p> Immediately after viewing the name "ES File Explorer" I tried to find some exploit to that service with the searchsploit and... we found gold! </p>
                         <p class="post-content-command"> searchsploit ES File Explorer </p>
                         <img src="../../assets/img/explore/searchsploit.png" alt="">
                     
                         <h3 class="post-content-section"> 🏳️ User Flag </h3>
-                        <p> A exploit which explores Arbitrary File Read vulnerability in ES File Explorer 4.1.9.7.4, we don't know the service version but... let's try?  </p>
+                        <p> An exploit that explores Arbitrary File Read vulnerability in ES File Explorer 4.1.9.7.4. We don't know the service version but... let's try?  </p>
                         <p class="post-content-command"> python3 esfileexplorer.py listPics explore.htb </p>
                         <img src="../../assets/img/explore/list_pics.png" alt="">
-                        <p> And it worked perfectly! We enumerated all the pictures successfully and... wait! A picture file called creds.jpg? Let's download this now! </p>
+                        <p> And it worked perfectly! We received a list with all the pictures and... wait! A picture file called creds.jpg? Let's download! </p>
                         <p class="post-content-command"> python3 esfileexplorer.py getFile explore.htb /storage/emulated/0/DCIM/creds.jpg </p>
                         <img src="../../assets/img/explore/download_pic.png" alt="">
                         <img src="../../assets/img/explore/creds_result.png" alt="">
 
-                        <p class="post-content-next"> And we found credentials! Username: kristi and password: Kr1sT!5h@Rp3xPl0r3! Ok, now where I use that? If we check our nmap result again we can see a open SSH running on port 2222 </p>
+                        <p class="post-content-next"> We found credentials! Username: <span>kristi</span> and password: <span>Kr1sT!5h@Rp3xPl0r3!</span> Ok, now where I'll use that? If we check our nmap result again, we can see a open SSH running on port 2222, let's try connecting to him </p>
                         <p class="post-content-command"> ssh kristi@10.10.10.247 -p 2222 </p>
                         <img src="../../assets/img/explore/user_ssh.png" alt="">
-                        <p> We logged in, now where is my user flag? Usually files in mobile phone are stored in Downloads, Pictures etc... and in SD Cards! What we have? A folder called sdcard so let's look inside it </p>
+                        <p> Connected in the SSH without problems, now where is my user flag? Usually files in mobile phone are stored in Downloads, Pictures etc... and in SD Cards! What we have? A folder called sdcard so let's look inside it </p>
                         <img src="../../assets/img/explore/sdcard_folder.png" alt="">
 
                         <h3 class="post-content-section"> 🏴 Root Flag </h3>
-                        <p> Yay! We got user now it's privilige escalation time. The first thing I do is go to HackTricks and search for Mobile Apps Pentesting, a long time later I found a interesting section "ADB Commands" </p>
+                        <p> We got user flag! now it's privilige escalation time. The first thing I do is go to HackTricks and search for Mobile Apps Pentesting. A long time later I found a interesting section called: <span>ADB Commands</span> </p>
                         <img src="../../assets/img/explore/adb_hacktricks.png" alt="">
                         <p> Scrolling a bit down there is a section called "Port Tunneling" saying: <span>"In case the adb port is only accessible from localhost in the android device but you have access via SSH, you can forward the port 5555 and connect via adb"</span> that's is exactly our situation, let's go!  </p>
                         <img src="../../assets/img/explore/port_tunneling.png" alt="">
                     
-                        <p class="post-content-next"> We're going to setup a port tunneling and use adb to connect in the machine </p>
+                        <p class="post-content-next"> We're going to setup a port tunneling with SSH and use adb to connect in the machine </p>
                         <p class="post-content-command"> ssh kristi@10.10.10.247 -L 5555:localhost:5555 -p 2222 </p>
                         <img src="../../assets/img/explore/port_tunneling_2.png" alt="">
-                        <p> Now we open other terminal tab and connect with adb </p>
+                        <p> Now we open another terminal tab and connect with adb </p>
                         <p class="post-content-command"> 
                             adb connect localhost:5555 <br>
                             adb devices <br>
@@ -106,7 +106,7 @@
                         </p>
                         <img src="../../assets/img/explore/port_tunneling_3.png" alt="">
 
-                        <p class="post-content-next"> Ok we connected in the adb shell sucessfully and now? Some time later searching how to privilige escalate on android applications I noticed adb is running with privilege so we can simple privesc with <span> su </span> command! </p>
+                        <p class="post-content-next"> Ok we connected in the adb shell and now? Some time later searching how to privilige escalate in android applications, I noticed adb is running with privileges so we can simple escalate our privileges with <span> su </span>! </p>
                         <img src="../../assets/img/explore/root.png" alt="">
 
                         <footer> Thanks for reading! :) </footer>
