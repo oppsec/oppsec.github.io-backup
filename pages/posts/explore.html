@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="hack n' roll">
+
+    <title> real ハッカー blog </title>
+
+    <link rel="shortcut icon" href="../../assets/img/dog.png" type="image/png">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/posts.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+    <section id="navbar">
+        <nav class="navbar navbar-expand-lg" id="landing-navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    oppsec
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse justify-content-end navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="../../index.html">Home</a>
+                        <a class="nav-link" href="./posts.html">Posts</a>
+                        <a class="nav-link" href="../projects.html">Projects</a>
+                        <a class="nav-link" href="../contact.html">Contact</a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </section>
+
+    <section id="posts">
+        <div class="container-fluid d-flex vh-80" id="posts-container">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+
+                    <h1 id="post-title"> HackTheBox Writeup - Explore (Easy) </h1>
+                    <img src="https://i.imgur.com/DurkzwL.png" alt="">
+
+                    <div id="post-content-container">
+                        <p> Explore is a easy machine from HackTheBox focused on a mobile system and it's the first first mobile machine I've made on HackTheBox. </p>
+                    
+                        <h3 class="post-content-section"> 🔍 Enumeration </h3>
+                        <p> First of all I take the machine ip address and add to my /etc/hosts file with the name "explore.htb" </p>
+                        <img src="../../assets/img/explore/hosts.png" alt="">
+
+                        <p class="post-content-next"> After this I started nmap to scan for open ports on the application to start playing </p>
+                        <p class="post-content-command"> sudo nmap -sV -sC -sS -T5 explore.htb </p>
+                        <img src="../../assets/img/explore/nmap_1.png" alt="">
+                        <p> As you can see, no interesting open ports, so I decided to run nmap with the -p- flag to enumerate all ports and try to find something interesting </p>
+                        <p class="post-content-command"> sudo nmap -sV -sC -sS -T5 -p- explore.htb </p>
+                        <img src="../../assets/img/explore/nmap_2.png" alt="">
+
+                        <p class="post-content-next"> After running nmap with the -p- flag I found more two open ports one is 42135 which is running ES File Explorer service and the other ports is 59777 running a Bukkit JSONAPI (?) </p>
+                        <p> Immediately after viewing "ES File Explorer" I tried to find some exploit to this service with the searchsploit and... we found gold! </p>
+                        <p class="post-content-command"> searchsploit ES File Explorer </p>
+                        <img src="../../assets/img/explore/searchsploit.png" alt="">
+                    
+                        <h3 class="post-content-section"> 🏳️ User Flag </h3>
+                        <p> A exploit which explores Arbitrary File Read vulnerability in ES File Explorer 4.1.9.7.4, we don't know the service version but... let's try?  </p>
+                        <p class="post-content-command"> python3 esfileexplorer.py listPics explore.htb </p>
+                        <img src="../../assets/img/explore/list_pics.png" alt="">
+                        <p> And it worked perfectly! We enumerated all the pictures successfully and... wait! A picture file called creds.jpg? Let's download this now! </p>
+                        <p class="post-content-command"> python3 esfileexplorer.py getFile explore.htb /storage/emulated/0/DCIM/creds.jpg </p>
+                        <img src="../../assets/img/explore/download_pic.png" alt="">
+                        <img src="../../assets/img/explore/creds_result.png" alt="">
+
+                        <p class="post-content-next"> And we found credentials! Username: kristi and password: Kr1sT!5h@Rp3xPl0r3! Ok, now where I use that? If we check our nmap result again we can see a open SSH running on port 2222 </p>
+                        <p class="post-content-command"> ssh kristi@10.10.10.247 -p 2222 </p>
+                        <img src="../../assets/img/explore/user_ssh.png" alt="">
+                        <p> We logged in, now where is my user flag? Usually files in mobile phone are stored in Downloads, Pictures etc... and in SD Cards! What we have? A folder called sdcard so let's look inside it </p>
+                        <img src="../../assets/img/explore/sdcard_folder.png" alt="">
+
+                        <h3 class="post-content-section"> 🏴 Root Flag </h3>
+                        <p> Yay! We got user now it's privilige escalation time. The first thing I do is go to HackTricks and search for Mobile Apps Pentesting, a long time later I found a interesting section "ADB Commands" </p>
+                        <img src="../../assets/img/explore/adb_hacktricks.png" alt="">
+                        <p> Scrolling a bit down there is a section called "Port Tunneling" saying: <span>"In case the adb port is only accessible from localhost in the android device but you have access via SSH, you can forward the port 5555 and connect via adb"</span> that's is exactly our situation, let's go!  </p>
+                        <img src="../../assets/img/explore/port_tunneling.png" alt="">
+                    
+                        <p class="post-content-next"> We're going to setup a port tunneling and use adb to connect in the machine </p>
+                        <p class="post-content-command"> ssh kristi@10.10.10.247 -L 5555:localhost:5555 -p 2222 </p>
+                        <img src="../../assets/img/explore/port_tunneling_2.png" alt="">
+                        <p> Now we open other terminal tab and connect with adb </p>
+                        <p class="post-content-command"> 
+                            adb connect localhost:5555 <br>
+                            adb devices <br>
+                            adb shell 
+                        </p>
+                        <img src="../../assets/img/explore/port_tunneling_3.png" alt="">
+
+                        <p class="post-content-next"> Ok we connected in the adb shell sucessfully and now? Some time later searching how to privilige escalate on android applications I noticed adb is running with privilege so we can simple privesc with <span> su </span> command! </p>
+                        <img src="../../assets/img/explore/root.png" alt="">
+
+                        <footer> Thanks for reading! :) </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
