@@ -1,2 +1,3 @@
 # oppsec.github.io
-> A personal website :)
+
+My personal website! I'll share writeups, tell about my projects and use this as my portfolio
