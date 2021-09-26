@@ -60,3 +60,49 @@
     background: var(--yellow-secondary);
     transition: .3s;
 }
+
+#posts-container {
+    padding: 2rem 8.9rem;
+}
+
+#posts-container .warning-text {
+    margin-bottom: 4rem;
+    color: var(--bg-third);
+}
+
+#posts-container .post-box {
+    color: var(--white-primary);
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 0.2rem;
+    margin-bottom: 3rem;
+}
+
+#posts-container .post-box h4 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+#posts-container .post-box img {
+    border-radius: 0.2rem;
+    margin-bottom: 2rem;
+}
+
+#posts-container .post-box p {
+    color: var(--fg-primary);
+}
+
+#posts-container .post-box #machine-info {
+    color: var(--yellow-primary);
+    margin-top: 1.5rem;
+}
+
+#posts-container .post-box a button {
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    background: var(--yellow-primary);
+    border: none;
+    border-radius: 0.2rem;
+    color: var(--bg-primary);
+    transition: .3s;
+}
