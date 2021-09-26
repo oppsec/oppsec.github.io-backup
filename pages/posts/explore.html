@@ -59,13 +59,13 @@
                         <p> Explore is a easy machine from HackTheBox with focus in a mobile system and it's the first mobile machine I've played on HackTheBox. </p>
                     
                         <h3 class="post-content-section"> 🔍 Enumeration </h3>
-                        <p> First of all, I take the machine IP address and add to my /etc/hosts file with the name "explore.htb" to be more easy to interact with the box </p>
+                        <p> First of all, I take the machine IP address and add to my <span>/etc/hosts</span> file with the name "explore.htb" to be more easy to interact with the box </p>
                         <img src="../../assets/img/explore/hosts.png" alt="">
 
                         <p class="post-content-next"> After this, I run nmap to scan for open ports on the application to start enumerating the machine </p>
                         <p class="post-content-command"> sudo nmap -sV -sC -sS -T5 explore.htb </p>
                         <img src="../../assets/img/explore/nmap_1.png" alt="">
-                        <p> As you can see, no interesting open ports, so I decided to run nmap with the -p- flag to scan all ports and try to find something interesting </p>
+                        <p> As you can see, no interesting open ports, so I decided to run nmap with the <span>-p-</span> flag to scan all ports and try to find something interesting </p>
                         <p class="post-content-command"> sudo nmap -sV -sC -sS -T5 -p- explore.htb </p>
                         <img src="../../assets/img/explore/nmap_2.png" alt="">
 
@@ -75,10 +75,10 @@
                         <img src="../../assets/img/explore/searchsploit.png" alt="">
                     
                         <h3 class="post-content-section"> 🏳️ User Flag </h3>
-                        <p> An exploit that explores Arbitrary File Read vulnerability in ES File Explorer 4.1.9.7.4. We don't know the service version but... let's try?  </p>
+                        <p> An exploit that explores Arbitrary File Read vulnerability in <span>ES File Explorer 4.1.9.7.4</span>. We don't know the service version but... let's try?  </p>
                         <p class="post-content-command"> python3 esfileexplorer.py listPics explore.htb </p>
                         <img src="../../assets/img/explore/list_pics.png" alt="">
-                        <p> And it worked perfectly! We received a list with all the pictures and... wait! A picture file called creds.jpg? Let's download! </p>
+                        <p> And it worked perfectly! We received a list with all the pictures and... wait! A picture file called <span>creds.jpg</span>? Let's download! </p>
                         <p class="post-content-command"> python3 esfileexplorer.py getFile explore.htb /storage/emulated/0/DCIM/creds.jpg </p>
                         <img src="../../assets/img/explore/download_pic.png" alt="">
                         <img src="../../assets/img/explore/creds_result.png" alt="">
