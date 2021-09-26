@@ -1,0 +1,38 @@
+#post-title {
+    color: var(--white-primary);
+    margin-bottom: 1rem;
+}
+
+#post-content-container {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    color: var(--fg-primary);
+}
+
+#post-content-container img {
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
+}
+
+#post-content-container span {
+    color: var(--purple-primary);
+}
+
+.post-content-section {
+    margin-top: 3rem;
+    color: var(--yellow-primary);
+}
+
+.post-content-next {
+    margin-top: 3rem;
+}
+
+.post-content-command {
+    color: var(--yellow-secondary);
+}
+
+#post-content-container footer {
+    margin-top: 2rem;
+    font-size: 2rem;
+    color: var(--yellow-secondary);
+}
