@@ -56,10 +56,10 @@
                     <img src="https://i.imgur.com/DurkzwL.png" alt="">
 
                     <div id="post-content-container">
-                        <p> Explore is a easy machine from HackTheBox with focus in a mobile system and it's the first mobile machine I've played on HackTheBox. </p>
+                        <p> Explore is an easy machine from HackTheBox with focus in a mobile system and it's the first mobile machine I've played on HackTheBox. </p>
                     
                         <h3 class="post-content-section"> 🔍 Enumeration </h3>
-                        <p> First of all, I take the machine IP address and add to my <span>/etc/hosts</span> file with the name "explore.htb" to be more easy to interact with the box </p>
+                        <p> First of all, I take the machine IP address and add to my <span>/etc/hosts</span> file with the name "explore.htb" to be easier to interact with the box </p>
                         <img src="../../assets/img/explore/hosts.png" alt="">
 
                         <p class="post-content-next"> After this, I run nmap to scan for open ports on the application to start enumerating the machine </p>
@@ -69,7 +69,7 @@
                         <p class="post-content-command"> sudo nmap -sV -sC -sS -T5 -p- explore.htb </p>
                         <img src="../../assets/img/explore/nmap_2.png" alt="">
 
-                        <p class="post-content-next"> Running nmap with the -p- flag I found more two open ports, one is 42135 running ES File Explorer service and the other port is 59777 running a Bukkit JSONAPI (?) </p>
+                        <p class="post-content-next"> Running nmap with the -p- flag I found two more open ports, one is 42135 running ES File Explorer service and the other port is 59777 running a Bukkit JSONAPI (?) </p>
                         <p> Immediately after viewing the name "ES File Explorer" I tried to find some exploit to that service with the searchsploit and... we found gold! </p>
                         <p class="post-content-command"> searchsploit ES File Explorer </p>
                         <img src="../../assets/img/explore/searchsploit.png" alt="">
