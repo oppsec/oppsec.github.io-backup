@@ -106,3 +106,8 @@
     color: var(--bg-primary);
     transition: .3s;
 }
+
+#posts-container .post-box a button:hover {
+    background: var(--yellow-secondary);
+    transition: .3s;
+}
