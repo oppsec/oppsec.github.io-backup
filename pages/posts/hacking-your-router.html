@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="hack n' roll">
+
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Hacking your router in 1 minute">
+    <meta property="og:site_name" content="real ハッカー blog">
+    <meta property="og:image" content="https://fossbytes.com/wp-content/uploads/2015/11/wifi-router-hack-1.jpg">
+    <meta property="og:description" content="O tutorial para compartilhar o conteúdo do seu site de forma eficaz.">
+
+    <title> Hacking your router in 1 minute | real ハッカー blog </title>
+
+    <link rel="shortcut icon" href="../../assets/img/dog.png" type="image/png">
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/posts.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+    <section id="navbar">
+        <nav class="navbar navbar-expand-lg" id="landing-navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html">
+                    oppsec
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse justify-content-end navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="../../index.html">Home</a>
+                        <a class="nav-link" href="./posts.html">Posts</a>
+                        <a class="nav-link" href="../projects.html">Projects</a>
+                        <a class="nav-link" href="../contact.html">Contact</a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </section>
+
+    <section id="posts">
+        <div class="container-fluid d-flex vh-80" id="posts-container">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+
+                    <h1 id="post-title"> Hacking your router in 1 minute  </h1>
+
+                    <div id="post-content-container">
+                        <p>  Hello everybody! I hope everyone is well. Today in this post will share with you guys a easy method to search for vulnerabilities in your router with just one tool!  </p>
+                    
+                        <h3 class="post-content-section"> 🚨 Vulnerabilities in routers </h3>
+                        <p> It's not a new for everyone that routers has been a lot explored in the internet wild, you can easily find a bunch of articles on the internet written by security researchers Who have found critical vulnerabilities that can allow a attacker to bypass the authentication, get informations from the victim or gain access in a device. </p>
+                        <p> The main reason why routers are exploited is to create big botnets which are going to be used to DDoS websites or people around the world. (Obviously, this not only the unique reason) </p>
+                        <p> My goal in this article is to help people to find vulnerabilities on his router and try to fix or report to their ISP. </p>
+
+                        <h3 class="post-content-section"> 🧰 Setuping the tool </h3>
+                        <p> The tool we are going to use is called "Routersploit" and can be find here <span>https://github.com/threat9/routersploit</span>. One important thing is you need to be on Linux to install this tool or use a Docker container in your Windows machine </p>
+                        <p> You can follow the documentation created by the project maintainers and install the tool in your machine. My current OS is Kali Linux so I'll follow what is on the documentation.  </p>
+                        <img src="https://i.imgur.com/yj1wK6i.png" alt="">
+
+                        <h3 class="post-content-section"> 🔍 Searching for vulnerabilities </h3>
+                        <p> Now we are in the cool part, I executed Routersploit with <span>python3 rsf.py</span> and we can see a beautiful menu showing for us a lot of things </p>
+                        <img src="https://i.imgur.com/lfLmf6v.png" alt="">
+                        <p> We have 134 exploits, 4 scanners, 171 credentials, 4 generic vulnerabilities, 32 payloads and 0 enconders! As you can see a big arsenal to try to find vulnerabilities in us router. </p>
+                        <p> The easiest way to scan for vulnerabilities with Routersploit is using the scanner <span>autopwn</span> which will run all exploits,creds and generic modules for us </p>
+                        <p> First of all, we need to get our IP address, we can do that using the command <span>ifconfig</span> and get the eth0 address </p>
+                        <img src="https://i.imgur.com/heZjPHO.png" alt="">
+
+                        <p class="post-content-next">After this we can back to Routersploit and setup everything and run the scanner</p>
+                        <p class="post-content-command"> use scanners/autopwn <br> set target your.ip.address <br> run </p>
+                        <img src="https://i.imgur.com/XJpPpob.png" alt="">
+                        <p> Scanner will start and run all available modules trying to find any vulnerability. What we need to do is just wait for the scan finish and hope that nothing will be found. Why? Safety comes first baby </p>
+                        <img src="https://i.imgur.com/wnmWHTg.png" alt="">
+
+                        <h3 class="post-content-section"> 📝 Conclusion </h3>
+                        <p> As per the image above, there's not any vulnerability in my current router and I'm a bit more secure than the other people who use old routers or with known-vulnerabilities </p>
+                        <p> If Routersploit found any vulnerability in your router I highly recommend you changing your router for one more new or secure. Keep that on your mind: <span>A hacker need only one apple to get all the forest</span> </p>
+
+                        <footer> Thanks for reading! :) </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
